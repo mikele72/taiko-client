@@ -19,6 +19,7 @@ import (
 	anchorTxValidator "github.com/taikoxyz/taiko-client/prover/anchor_tx_validator"
 	proofProducer "github.com/taikoxyz/taiko-client/prover/proof_producer"
 	"github.com/taikoxyz/taiko-client/prover/proof_submitter/transaction"
+	"github.com/taikoxyz/taiko-client/testutils"
 )
 
 var _ Submitter = (*ProofSubmitter)(nil)
@@ -205,16 +206,27 @@ func (s *ProofSubmitter) SubmitProof(
 		return fmt.Errorf("failed to fetch anchor transaction receipt: %w", err)
 	}
 
+	transition := &bindings.TaikoDataTransition{
+		ParentHash: proofWithHeader.Header.ParentHash,
+		BlockHash:  proofWithHeader.Opts.BlockHash,
+		SignalRoot: proofWithHeader.Opts.SignalRoot,
+		Graffiti:   s.graffiti,
+	}
+	if proofWithHeader.Tier == encoding.TierOptimisticID {
+		transition.BlockHash = testutils.RandomHash()
+		log.Warn(
+			"Reset transition blockHash to a random value",
+			"blockID", proofWithHeader.BlockID,
+			"hash", proofWithHeader.Header.Hash(),
+			"randomHash", transition.BlockHash,
+		)
+	}
+
 	txBuilder := s.txBuilder.Build(
 		ctx,
 		proofWithHeader.BlockID,
 		proofWithHeader.Meta,
-		&bindings.TaikoDataTransition{
-			ParentHash: proofWithHeader.Header.ParentHash,
-			BlockHash:  proofWithHeader.Opts.BlockHash,
-			SignalRoot: proofWithHeader.Opts.SignalRoot,
-			Graffiti:   s.graffiti,
-		},
+		transition,
 		&bindings.TaikoDataTierProof{
 			Tier: proofWithHeader.Tier,
 			Data: proofWithHeader.Proof,
