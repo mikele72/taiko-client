@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.19.0](https://github.com/taikoxyz/taiko-client/compare/v0.18.0...v0.19.0) (2023-12-08)
+
+
+### Features
+
+* **bindings:** update Go contract bindings ([#471](https://github.com/taikoxyz/taiko-client/issues/471)) ([23ce311](https://github.com/taikoxyz/taiko-client/commit/23ce3119478eaa025d05890a5b1c8188216beb29))
+* **proposer:** optimize proposer logs ([#464](https://github.com/taikoxyz/taiko-client/issues/464)) ([c7e899d](https://github.com/taikoxyz/taiko-client/commit/c7e899d547009b32e3d0762c55707cb4b85dcb8f))
+* **prover:** change block signing to use timestamp as key ([#466](https://github.com/taikoxyz/taiko-client/issues/466)) ([eb5bc7a](https://github.com/taikoxyz/taiko-client/commit/eb5bc7a8b541e17e52f8b32b3f7d2104ad6ce0eb))
+
+
+### Bug Fixes
+
+* **bindings:** fix `AssignmentHookABI` variable typo ([#468](https://github.com/taikoxyz/taiko-client/issues/468)) ([3b057f3](https://github.com/taikoxyz/taiko-client/commit/3b057f321bf051c150319406a76a3bbf03127572))
+* **prover:** change separator ([#469](https://github.com/taikoxyz/taiko-client/issues/469)) ([8e8897f](https://github.com/taikoxyz/taiko-client/commit/8e8897fbe905fc14279988028407f3773e1d0a00))
+
 ## [0.18.0](https://github.com/taikoxyz/taiko-client/compare/v0.17.0...v0.18.0) (2023-12-03)
 
 
